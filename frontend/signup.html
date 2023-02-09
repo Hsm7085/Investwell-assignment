@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>  
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<title>Forms</title>
+<style>
+    body {
+        text-align: center;
+        background-color: #1bbbd7;
+    }
+    
+
+    .container {
+        /* margin:25px 20px; */
+        padding: 0;
+        /* display: block; */
+        list-style: none;
+        margin: 10px 0 0 0;
+        text-align: left;
+    }
+
+
+    form input {
+        margin-left: 10px;
+        font-size: 15px;
+        border-radius: 10px;;
+        
+    }
+
+    .design {
+
+        margin: 10px 650px;
+        max-width: 400px;
+        padding: 20px 12px 10px 20px;
+        font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        /* background-color:brown; */
+    }
+
+    label {
+        margin: 0 0 3px 0;
+        padding: 0px;
+        display: block;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    .add {
+
+        border: 1px solid #BEBEBE;
+        padding: 7px;
+        margin: 0px;
+
+    }
+
+    #mytable {
+        margin: 10px auto;
+        width: 100%;
+        border: 1px solid black;
+
+    }
+
+    #table {
+        margin: 10px auto;
+        width: 100%;
+        border: 1px solid black;
+    }
+
+    #button {
+        text-decoration: none;
+        color: rgb(255, 255, 255);
+    }
+
+    .header {
+        padding: 0px 20px;
+        border-radius: 15px;
+        /* border: 2px solid #000000; */
+        background: rgb(20, 106, 220);
+        color: white;
+        font-size: 30px;
+        text-align: left;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: rgb(20, 106, 220);
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        align-items: left;
+        margin: 10px;
+    }
+</style>
+
+<body>
+    <div class="header">
+        <button type="button">Home </button>
+        <button type="button">About</button>
+         <button type="button" onclick="login()"> Login </button>
+        <button type="button">Contact</button>
+
+            
+    </div>
+<div id="signup">
+    <form name="first" class="design" id="myform" style="display: block;" method="POST" >
+
+        <div class="container" id="name">
+            <label> Name: <input type="text" name="name" class="add" ></label>
+        </div>
+        <div class="container">
+            <label> Last Name: <input type="text" name="lname" class="add" id="lname"></label>
+        </div>
+        <div class="container">
+            <label> Email: <input type="email" name="email" class="add"></label>
+        </div>
+        <div class="container">
+            <label> Password: <input type="password" name="pass" class="add"></label>
+        </div>
+        <div class="container">
+            <label> Confirm Password: <input type="password" name="cpass" class="add" id="cpass"></label>
+        </div>
+
+        <div>
+            <button onclick="validateForm()">Signup</button>
+            
+
+
+        </div>
+
+    </form>
+    <div id="welcome"style="display:none">
+    <h1 id="type">""</h1>
+</div>
+
+
+   
+   
+    <form id="new" name="second" class="design" style="display:none;">
+        <div class="container">
+            <label> Email: <input type="email" name="email" class="add"></label>
+        </div>
+        <div class="container">
+            <label> Password: <input type="password" name="pass" class="add"></label>
+        </div>
+        <div>
+          
+            <button type="button" onclick="validate()"> Login </button>
+
+
+        </div>
+    </form>
+</div>
+
+    <div class="file">
+        <p id="store"></p>
+    </div>
+
+    <div>
+        <h2>Number of Register users : <span id="h">0</span></h2>
+
+        <table id="table">
+            <thead>
+                <tr>
+                    <th>UserId</th>
+                    <th>Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+
+                </tr>
+            </thead>
+            <tbody id="mytable">
+
+            </tbody>
+
+        </table>
+
+
+    </div>
+
+      <!-- <button type="button" onclick="test()">test</button>
+    <script src="connection.js"></script> -->
+    <script src="script.js"></script>
+    
+
+
+
+</body>
+
+</html>
