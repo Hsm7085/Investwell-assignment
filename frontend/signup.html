@@ -101,9 +101,9 @@
 <body>
     <div class="header">
         <button type="button">Home </button>
-        <button type="button">About</button>
+        <button type="button" onclick="update()">Update</button>
          <button type="button" onclick="login()"> Login </button>
-        <button type="button">Contact</button>
+        <button type="button" onclick="remove()">Delete</button>
 
             
     </div>
@@ -128,6 +128,7 @@
 
         <div>
             <button onclick="validateForm()">Signup</button>
+            
             
 
 
@@ -155,13 +156,65 @@
 
         </div>
     </form>
+
+
+
+    <form id="new2" name="third" class="design" style="display:none;">
+        <div class="container">
+            <label> Email: <input type="email" id="del" name="email" class="add"></label>
+        </div>
+      
+        <div>
+          
+            <button type="button" onclick="removeUser()"> Delete </button>
+
+
+        </div>
+    </form>
+
+
+    <form id="new3" name="fourth" class="design" style="display:none;">
+        <div class="container" id="name">
+            <label> UserId <input type="text" name="UserId" class="add" ></label>
+        </div>
+        <div class="container" id="name">
+            <label> Name: <input type="text" name="name" class="add" ></label>
+        </div>
+        <div class="container">
+            <label> Last Name: <input type="text" name="lname" class="add"></label>
+        </div>
+        <div class="container">
+            <label> Email: <input type="email" name="email" class="add"></label>
+        </div>
+        <div class="container">
+            <label> Password: <input type="password" name="pass" class="add"></label>
+        </div>
+        <div class="container">
+            <label> Confirm Password: <input type="password" name="cpass" class="add"></label>
+        </div>
+        
+        <div>
+          
+            <button type="button" onclick="updateUser()"> Update </button>
+
+
+        </div>
+    </form>
+
+
+
+
+
+    
+
+
 </div>
 
     <div class="file">
         <p id="store"></p>
     </div>
 
-    <div>
+    <div id="tab" style="display:none">
         <h2>Number of Register users : <span id="h">0</span></h2>
 
         <table id="table">
@@ -183,11 +236,70 @@
 
     </div>
 
-      <!-- <button type="button" onclick="test()">test</button>
-    <script src="connection.js"></script> -->
+      <button type="button" onclick="get()">fetch</button>
+    <!-- <script src="connection.js"></script> -->
     <script src="script.js"></script>
     
+<script>
 
+function remove(){
+    document.getElementById("myform").style.display="none";
+    document.getElementById("new").style.display="none";
+    document.getElementById("new2").style.display="block";
+    document.getElementById("new3").style.display="none";
+    document.getElementById("tab").style.display="none";
+}
+function update(){
+    document.getElementById("myform").style.display="none";
+    document.getElementById("new").style.display="none";
+    document.getElementById("new2").style.display="none";
+    document.getElementById("new3").style.display="block";
+    document.getElementById("tab").style.display="none";
+}
+
+
+function removeUser(){
+    let email=document.getElementById("del").value;
+    let obj={email}
+    console.log("fghj");
+    console.log(obj.email);
+    $.ajax({
+        url:"http://localhost:3000/del",
+        type:"POST",
+        data:obj,
+        success: function(result){
+            console.log("Hello",result);
+
+        },
+        error:function(error){
+            console.log(error);
+        }
+    })
+}
+function updateUser(){
+    let UserId=document.forms.fourth.UserId.value;
+    let name = document.forms.fourth.name.value;   
+    let lname = document.forms.fourth.lname.value;
+    let email = document.forms.fourth.email.value;
+    let pass = document.forms.fourth.pass.value;
+    let cpass = document.forms.fourth.cpass.value; 
+    console.log("HELLO");
+    const obj={UserId,name,lname,email,pass,cpass};
+
+    $.ajax({
+        url:"http://localhost:3000/upd",
+        type:"POST",
+        data:obj,
+        success: function(result){
+            console.log("Hello",result);
+        },
+        error:function(error){
+            console.log(error);
+        }
+    })
+}
+
+</script>
 
 
 </body>

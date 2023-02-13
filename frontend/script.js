@@ -6,6 +6,29 @@ let form=document.getElementById("myform");
 form.addEventListener('submit',function(e){
     e.preventDefault();
 });
+function get(){
+    
+    console.log("fghj")
+    $.ajax({
+        url:"http://localhost:3000/show",
+        type:"GET",
+        success: function(result){
+            var tabledata="";
+            for( i=0;i<result.length;i++){
+                var obj=result[i];
+                tabledata+="<tr><td>" + obj.user_id+"<td>" + obj.fname+"</td><td>"+obj.lname+"</td><td>"+obj.email+"</tr>";
+                    
+            }
+            document.getElementById("mytable").innerHTML=tabledata;
+            document.getElementById("h").innerHTML=data.length;
+            console.log("Hello",result);
+        },
+        error:function(error){
+            console.log(error);
+        }
+    });
+    document.getElementById("tab").style.display="block";
+}
 function validateForm() {
     document.getElementById("myform").style.display="block";
     document.getElementById("new").style.display="none";
@@ -69,14 +92,15 @@ function validateForm() {
         hash.set(email,pass);
 
         var table = document.getElementById("mytable");
-        var tabledata="";
-        for( i=0;i<data.length;i++){
-            var obj=data[i];
-            tabledata+="<tr><td>" + obj.n+"<td>" + obj.name+"</td><td>"+obj.lname+"</td><td>"+obj.email+"</tr>";
+        var ob=data[0];
+        // var tabledata="";
+        // for( i=0;i<data.length;i++){
+        //     var obj=data[i];
+        //     tabledata+="<tr><td>" + obj.n+"<td>" + obj.name+"</td><td>"+obj.lname+"</td><td>"+obj.email+"</tr>";
                 
-        }
-        document.getElementById("mytable").innerHTML=tabledata;
-        document.getElementById("h").innerHTML=data.length;
+        // }
+        // document.getElementById("mytable").innerHTML=tabledata;
+        // document.getElementById("h").innerHTML=data.length;
 
         
 
@@ -88,7 +112,7 @@ function validateForm() {
               type: "POST",
               dataType:"json",
             //   data:{name:name,lname: lname,email:email,pass:pass},
-            data:obj,
+            data:ob,
               success: function(result) {
                 console.log(result);
                 console.log("data saved successfully");
@@ -112,6 +136,8 @@ function validateForm() {
 function login(){
     document.getElementById("myform").style.display="none";
     document.getElementById("new").style.display="block";
+    document.getElementById("new2").style.display="none";
+    document.getElementById("new3").style.display="none";
 }
 function validate(){
     let email=document.forms.second.email.value;
@@ -135,6 +161,7 @@ var result=false;
     if(result){
         document.getElementById("new").style.display="none";
         document.getElementById("welcome").style.display="block";
+        // document.getElementById("new2").style.display="none"
         document.getElementById("type").innerHTML="Welcome: "+data[j][1]+" "+data[j][2];
     }
     else{

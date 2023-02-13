@@ -1,74 +1,78 @@
-
-const mysql=require('mysql2');
-
-const connection =mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    database:'iwell',
-    password: 'himanshu'
-});
-connection.connect(function(err){
-    if(err) throw err;
-    console.log('Connected');
-});
-// module.exports=connection;
+const db=require('./backend/connection/db');
+const routes=require('./backend/routes/routes');
 
 
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
+var path=require("path");
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
+app.use("/",routes);
     
 var port = 3000;
-app.use(express.static('frontend'));
+app.use(express.static(path.join(__dirname,"/frontend")));
 
-app.use((req,res,next)=>{
-    res.setHeader('Access-Control-Allow-Origin','*');
-    res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
-    res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
-    next(); 
-})
-
-// TO GET DATA   
-app.get('/show', function(req, res) {
+app.get('/', function(req, res) {
    
-    connection.query(
-        'select * from form',
-        function(err ,results,fields){
-            console.log(results);
-            res.send(results); 
-        }
-    );
-   console.log("user details",req.query);
-    // res.sendFile(__dirname+'/frontend/signup.html'); 
+    res.sendFile(__dirname+'/frontend/signup.html'); 
    
 });
 
+// app.use((req,res,next)=>{
+//     res.setHeader('Access-Control-Allow-Origin','*');
+//     res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
+//     res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
+//     next(); 
+// })
+
+
+app.listen(port);
+    console.log('Server started! At http://localhost:' + port);
+
+
+
+
+
+
+// TO GET DATA   
+// app.get('/show', function(req, res) {
+   
+//     connection.query(
+//         'select * from form',
+//         function(err ,results,fields){
+//             console.log(results);
+//             res.send(results); 
+//         }
+//     );
+//    console.log("user details",req.query);
+//     // res.sendFile(__dirname+'/frontend/signup.html'); 
+   
+// });
+
 // //TO SEND DATA
-app.post('/ab', function(req, res) {
+// app.post('/ab', function(req, res) {
     
-        var name=req.body.name;
-        var lname=req.body.lname;
-        var email=req.body.email;
-        var pass=req.body.pass;
-        var cpass=req.body.cpass;
-        // Validation
+//         var name=req.body.name;
+//         var lname=req.body.lname;
+//         var email=req.body.email;
+//         var pass=req.body.pass;
+//         var cpass=req.body.cpass;
+//         // Validation
 
-    connection.query(
-            'insert into form (fname,lname,email,password) values("'+name+'","'+lname+'","'+email+'","'+pass+'")',
-            function(err ,results,fields){
-                // console.log(results);
-                // res.send(results);
+//     connection.query(
+//             'insert into form (fname,lname,email,password) values("'+name+'","'+lname+'","'+email+'","'+pass+'")',
+//             function(err ,results,fields){
+//                 // console.log(results);
+//                 // res.send(results);
                 
-            }
-         );
-        console.log(req.body);
-        res.send(req.body);
-        return;
-    });
-  
-
+//             }
+//          );
+//         console.log(req.body);
+//         res.send(req.body);
+//         return;
+//     });
+    
 // // //     app.put('/user/details/update', function(req, res) {
 // // //         let userdetails=req.query;
 // // //         // console.log('body is ',req.body);
@@ -100,8 +104,7 @@ app.post('/ab', function(req, res) {
 // // //     });
 
 
-app.listen(port);
-console.log('Server started! At http://localhost:' + port);
+
 
  
 
