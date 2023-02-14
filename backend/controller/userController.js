@@ -3,10 +3,12 @@ const {connection}=require('../connection/db');
 
 //GET
 const getAllData=(req,res)=>{
-   const result=services.getAllData(function(err,result){
-    return res.send(result);
+   // console.log(req);
+   const result=services.getAllData();
+   //console.log(result);
+    result.then((data)=>{
+    res.send(data);
    });
-   return result;
  };
 
  //INSERT

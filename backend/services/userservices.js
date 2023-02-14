@@ -2,13 +2,21 @@ const userdb=require('../Repositories/userdb');
 const {connection}=require('../connection/db');
 
 //GET
-function getAllData(cb){
-    const abc='select * from form';
-    const result=userdb.getAllData(abc, function(error,res){
-        console.log(res);
-        cb(null,res);
-return result;
-    });
+function getAllData(){
+    
+    return new Promise(function(resolve){
+        const abc='select * from form';
+        const result=userdb.getAllData(abc);
+                    result.then((data)=>{
+                        resolve(data);
+                    })
+                
+    })
+//     const result=userdb.getAllData(abc, function(error,res){
+//         console.log(res);
+//         cb(null,res);
+// return result;
+//     });
     
 }
 

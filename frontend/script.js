@@ -20,7 +20,7 @@ function get(){
                     
             }
             document.getElementById("mytable").innerHTML=tabledata;
-            document.getElementById("h").innerHTML=data.length;
+            document.getElementById("h").innerHTML=result.length;
             console.log("Hello",result);
         },
         error:function(error){

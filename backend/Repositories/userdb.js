@@ -1,17 +1,15 @@
 const {connection}=require('../connection/db');
 
 //GET
-function getAllData(abc,cb){
-    let result;
-
-    connection.query(abc,function(err ,res){
+function getAllData(abc){
+    return new Promise(function(resolve){
+        connection.query(abc,function(err ,res){
             if(err){
                 return console.log(err);
             }
-            result=res;
-            console.log(result);
-            return cb(null,result)
-            // return result;
+            resolve(res);
+          })
+          
         }
     )
 }
