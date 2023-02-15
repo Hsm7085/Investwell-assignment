@@ -2,15 +2,11 @@ const userdb=require('../Repositories/userdb');
 const {connection}=require('../connection/db');
 
 //GET
-function getAllData(){
-    
+async function getAllData(){
+    const abc='select * from form';
+    const result= await userdb.getAllData(abc);
     return new Promise(function(resolve){
-        const abc='select * from form';
-        const result=userdb.getAllData(abc);
-                    result.then((data)=>{
-                        resolve(data);
-                    })
-                
+                    resolve(result);
     })
 //     const result=userdb.getAllData(abc, function(error,res){
 //         console.log(res);

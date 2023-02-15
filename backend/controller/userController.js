@@ -2,13 +2,14 @@ const services=require('../services/userservices');
 const {connection}=require('../connection/db');
 
 //GET
-const getAllData=(req,res)=>{
+const getAllData=async (req,res)=>{
    // console.log(req);
-   const result=services.getAllData();
+   const result=await services.getAllData();
    //console.log(result);
-    result.then((data)=>{
-    res.send(data);
-   });
+   //  result.then((data)=>{
+   //  res.send(data);
+   // });
+   res.send(result);
  };
 
  //INSERT

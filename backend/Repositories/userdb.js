@@ -1,7 +1,7 @@
 const {connection}=require('../connection/db');
 
 //GET
-function getAllData(abc){
+async function getAllData(abc){
     return new Promise(function(resolve){
         connection.query(abc,function(err ,res){
             if(err){
