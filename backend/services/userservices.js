@@ -3,7 +3,7 @@ const {connection}=require('../connection/db');
 
 //GET
 async function getAllData(){
-    const abc='select * from form';
+    const abc='select fname,lname,email from form';
     const result= await userdb.getAllData(abc);
     return new Promise(function(resolve){
                     resolve(result);
@@ -16,25 +16,48 @@ async function getAllData(){
     
 }
 
+//LOGIN
+async function loginuser(user){
+    let email=user.email;
+    let pass=user.pass;
+    const abc=`select * from form where email="${email}" and password="${pass}"`;
+    const result=await userdb.loginuser(abc);
+    console.log(result);
+    return new Promise(function(resolve){
+        resolve(result);
+    })
+    
+}
+//DELETE
+ async function deleteData(user){
+    let email=user.email;
+    const abc= `Delete from form where email="${email}" `;
+    const res1=await userdb.deleteData(abc);
+    return new Promise(function(resolve){
+        resolve(res1);
+    });
+}
+
 //INSERT
-function insertData(user){
+async function insertData(user){
     var name=user.name;
     var lname=user.lname;
     var email=user.email;
     var pass=user.pass;
-    var cpass=user.cpass;
     const abc='insert into form (fname,lname,email,password) values("'+name+'","'+lname+'","'+email+'","'+pass+'")';
-  const res1=userdb.insertData(abc);
-    return;
+  
+  let result;
+  try{
+    result=await userdb.insertData(abc);
+  }  
+  catch(err){
+    result=err;
+  }
+  
+    return result;
 }
 
-//DELETE
-function deleteData(user){
-    var email=user.email;
-    const abc= `Delete from form where email="${email}" `;
-    const res1=userdb.deleteData(abc);
-    return;
-}
+
 
 //UPDATE
 function updateData(user){
@@ -48,4 +71,4 @@ function updateData(user){
     return;
 }
 
-module.exports={getAllData,insertData,deleteData,updateData};
+module.exports={getAllData,insertData,deleteData,updateData,loginuser};

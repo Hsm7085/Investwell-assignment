@@ -13,6 +13,7 @@
     body {
         text-align: center;
         background-color: #1bbbd7;
+        margin:0px;
     }
     
 
@@ -78,7 +79,7 @@
 
     .header {
         padding: 0px 20px;
-        border-radius: 15px;
+        /* border-radius: 15px; */
         /* border: 2px solid #000000; */
         background: rgb(20, 106, 220);
         color: white;
@@ -99,11 +100,20 @@
 </style>
 
 <body>
+    <div id="success" style="background-color: rgb(69, 172, 69); display:none">
+        Login successfully
+    </div>
+    <!-- <div id="failed" style="background-color: rgb(154, 96, 96); display:none; font-weight:bold;">
+        Email already exists
+    </div> -->
+    <div id="failed" style="background-color: rgb(69, 172, 69); display:none">
+        
+    </div>
+
     <div class="header">
-        <button type="button">Home </button>
-        <button type="button" onclick="update()">Update</button>
-         <button type="button" onclick="login()"> Login </button>
-        <button type="button" onclick="remove()">Delete</button>
+        <button type="button" onclick="signup()" id="logout">Signup </button>
+        <button type="button" onclick="login()"> Login </button>
+       
 
             
     </div>
@@ -111,7 +121,7 @@
     <form name="first" class="design" id="myform" style="display: block;" method="POST" >
 
         <div class="container" id="name">
-            <label> Name: <input type="text" name="name" class="add" ></label>
+            <label> First Name: <input type="text" name="name" class="add" ></label>
         </div>
         <div class="container">
             <label> Last Name: <input type="text" name="lname" class="add" id="lname"></label>
@@ -144,14 +154,14 @@
    
     <form id="new" name="second" class="design" style="display:none;">
         <div class="container">
-            <label> Email: <input type="email" name="email" class="add"></label>
+            <label> Email: <input type="email" name="email" class="add" id="email1"></label>
         </div>
         <div class="container">
-            <label> Password: <input type="password" name="pass" class="add"></label>
+            <label> Password: <input type="password" name="pass" class="add" id="pass1"></label>
         </div>
         <div>
           
-            <button type="button" onclick="validate()"> Login </button>
+            <button type="button" onclick="loginuser()"> Login </button>
 
 
         </div>
@@ -201,13 +211,6 @@
         </div>
     </form>
 
-
-
-
-
-    
-
-
 </div>
 
     <div class="file">
@@ -220,7 +223,7 @@
         <table id="table">
             <thead>
                 <tr>
-                    <th>UserId</th>
+                    <!-- <th>UserId</th> -->
                     <th>Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
@@ -237,6 +240,8 @@
     </div>
 
       <button type="button" onclick="get()">fetch</button>
+      <button type="button" onclick="update()" id="upd" style="display:none;">Update</button>
+      <button type="button" onclick="remove()" id="rem" style="display:none;">Delete</button>
     <!-- <script src="connection.js"></script> -->
     <script src="script.js"></script>
     
@@ -248,6 +253,23 @@ function remove(){
     document.getElementById("new2").style.display="block";
     document.getElementById("new3").style.display="none";
     document.getElementById("tab").style.display="none";
+    document.getElementById("welcome").style.display="none";
+    document.getElementById("success").style.display="none";
+    document.getElementById("failed").style.display="none";
+    document.getElementById("upd").style.display="block";
+    document.getElementById("rem").style.display="none";
+}
+function login(){
+    document.getElementById("myform").style.display="none";
+    document.getElementById("new").style.display="block";
+    document.getElementById("new2").style.display="none";
+    document.getElementById("new3").style.display="none";
+    document.getElementById("tab").style.display="none";
+    document.getElementById("welcome").style.display="none";
+    document.getElementById("success").style.display="none";
+    document.getElementById("failed").style.display="none";
+    
+    
 }
 function update(){
     document.getElementById("myform").style.display="none";
@@ -255,6 +277,27 @@ function update(){
     document.getElementById("new2").style.display="none";
     document.getElementById("new3").style.display="block";
     document.getElementById("tab").style.display="none";
+    document.getElementById("welcome").style.display="none";
+    document.getElementById("success").style.display="none";
+    document.getElementById("failed").style.display="none";
+    document.getElementById("upd").style.display="none";
+    document.getElementById("rem").style.display="block";
+    document.getElementById("logout").innerHTML="Logout";
+}
+function signup(){
+    document.getElementById("upd").style.display="none";
+    document.getElementById("rem").style.display="none";
+    document.getElementById("myform").style.display="block";
+    document.getElementById("new").style.display="none";
+    document.getElementById("new2").style.display="none";
+    document.getElementById("new3").style.display="none";
+    document.getElementById("tab").style.display="none";
+    document.getElementById("welcome").style.display="none";
+    document.getElementById("success").style.display="none";
+    document.getElementById("failed").style.display="none";
+    document.getElementById("upd").style.display="none";
+    document.getElementById("rem").style.display="none";
+    document.getElementById("logout").innerHTML="Signup";
 }
 
 
@@ -268,13 +311,22 @@ function removeUser(){
         type:"POST",
         data:obj,
         success: function(result){
-            console.log("Hello",result);
+            if(typeof(result)=="string"){
+            alert(result);
+            }
+            // else{
+            //     get();
+            // }
 
         },
         error:function(error){
             console.log(error);
         }
     })
+    
+        document.forms.third.email.value="";
+      
+       
 }
 function updateUser(){
     let UserId=document.forms.fourth.UserId.value;
@@ -297,6 +349,15 @@ function updateUser(){
             console.log(error);
         }
     })
+        document.forms.fourth.UserId.value="";
+        document.forms.fourth.name.value="";
+        document.forms.fourth.lname.value="";
+        document.forms.fourth.email.value="";
+        document.forms.fourth.pass.value="";
+        document.forms.fourth.cpass.value="";
+        get();
+        document.getElementById("upd").style.display="block";
+    document.getElementById("rem").style.display="block";
 }
 
 </script>

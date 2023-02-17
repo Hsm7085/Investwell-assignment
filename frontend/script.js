@@ -1,6 +1,4 @@
 
-var n=0;
-var data=[];
 var hash=new Map();
 let form=document.getElementById("myform");
 form.addEventListener('submit',function(e){
@@ -16,7 +14,7 @@ function get(){
             var tabledata="";
             for( i=0;i<result.length;i++){
                 var obj=result[i];
-                tabledata+="<tr><td>" + obj.user_id+"<td>" + obj.fname+"</td><td>"+obj.lname+"</td><td>"+obj.email+"</tr>";
+                tabledata+="<tr><td>" + obj.fname+"</td><td>"+obj.lname+"</td><td>"+obj.email+"</tr>";
                     
             }
             document.getElementById("mytable").innerHTML=tabledata;
@@ -81,29 +79,18 @@ function validateForm() {
 
             // }
 
-           if( hash.has(email)){
-            alert("This Email already exist");
-            return false;
-           }
+        //    if( hash.has(email)){
+        //     alert("This Email already exist");
+        //     return false;
+        //    }
+        let n=0;
+let data=[];
     
     n++;
         data.push({n,name,lname,email,pass});
        
         hash.set(email,pass);
-
-        var table = document.getElementById("mytable");
         var ob=data[0];
-        // var tabledata="";
-        // for( i=0;i<data.length;i++){
-        //     var obj=data[i];
-        //     tabledata+="<tr><td>" + obj.n+"<td>" + obj.name+"</td><td>"+obj.lname+"</td><td>"+obj.email+"</tr>";
-                
-        // }
-        // document.getElementById("mytable").innerHTML=tabledata;
-        // document.getElementById("h").innerHTML=data.length;
-
-        
-
 
         // CALL AJAX
         
@@ -113,60 +100,85 @@ function validateForm() {
               dataType:"json",
             //   data:{name:name,lname: lname,email:email,pass:pass},
             data:ob,
-              success: function(result) {
+              success:function(result) {
+               console.log("tttttttttttt");
                 console.log(result);
-                console.log("data saved successfully");
+                    
+                    // document.getElementById("failed").style.display="block";
+                    // document.getElementById("failed").innerHTML=result;
+                    // setTimeout(()=>{
+                    //     document.getElementById("failed").style.display="none";
+                    // },2500)
+                
+                
+             
               },
               error: function(error) {
-                console.log(error);
+                // console.log("jjjjjj");
+                err=error.responseText;
+                document.getElementById("failed").style.display="block";
+                    document.getElementById("failed").innerHTML=err;
+                    setTimeout(()=>{
+                        document.getElementById("failed").style.display="none";
+                    },2500)
+                console.log(error.responseText);
               }
             });
           
-        
-
         document.forms.first.name.value="";
         document.forms.first.lname.value="";
         document.forms.first.email.value="";
         document.forms.first.pass.value="";
         document.forms.first.cpass.value="";
-    
-
+   get();
 }
 
-function login(){
-    document.getElementById("myform").style.display="none";
-    document.getElementById("new").style.display="block";
-    document.getElementById("new2").style.display="none";
-    document.getElementById("new3").style.display="none";
-}
-function validate(){
-    let email=document.forms.second.email.value;
-    let pass=document.forms.second.pass.value;
-var result=false;
 
+function loginuser(){
+   
 // if(hash.get(email)==pass){
     //     result=true;
         
     // }
-
-    for(var j=0;j<data.length;j++){
-        if((data[j][3]==email) && (data[j][4]==pass)){
-            result=true;
-            break;
-        }
-    }
-
-
-
-    if(result){
+    let email=document.forms.second.email.value;
+    let pass=document.forms.second.pass.value;
+    let obj={email,pass};
+    $.ajax({
+        url:"http://localhost:3000/login",
+        type:"POST",
+        data:obj,
+        success: function(result){
+           
+            if(typeof(result)==="string"){
+                alert(result);
+                document.forms.second.email.value="";
+                document.forms.second.pass.value="";
+            }
+            else{
+                let firstname=result[0].fname;
+                let lastname=result[0].lname;
+                let id=result[0].user_id;
         document.getElementById("new").style.display="none";
         document.getElementById("welcome").style.display="block";
-        // document.getElementById("new2").style.display="none"
-        document.getElementById("type").innerHTML="Welcome: "+data[j][1]+" "+data[j][2];
-    }
-    else{
-        alert("Please Signup first");
-    }
+        document.getElementById("success").style.display="block";
+        document.getElementById("upd").style.display="block";
+    document.getElementById("rem").style.display="block";
+        document.getElementById("type").innerHTML="Welcome "+firstname+" "+lastname+",  UserId:  "+id;
+        document.getElementById("logout").innerHTML="Logout";
+            }
+           
+            
+        },
+        error:function(error){
+            console.log(error);
+        }
+    });
+   
+    
+
+
+
+   
 
 }
 

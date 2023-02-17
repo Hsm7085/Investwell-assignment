@@ -12,17 +12,43 @@ const getAllData=async (req,res)=>{
    res.send(result);
  };
 
+ //LOGIN 
+ const loginuser=async(req,res)=>{
+   
+const result=await services.loginuser(req.body);
+// res.send(result);
+let email=req.body.email;
+let pass=req.body.pass;
+
+if(result.length==0){
+   res.send("Invalid Credentials");
+}
+else{
+res.send(result);
+}
+ };
+
+ //DELETE
+const deleteData=async (req, res)=>{
+   const res1=await services.deleteData(req.body);
+   if(res1.affectedRows==0){
+      res.send("No User Found");
+   }
+   else{
+   res.send(res1);
+   }
+}
+
+
  //INSERT
- const insertData=(req, res)=>{
-    const res1=services.insertData(req.body);
-    return res1;
+ const insertData=async(req, res)=>{
+       const res1=await services.insertData(req.body);
+      //  console.log(res1);
+       res.send(res1);
+      // return res1;
+      //  res.send(res1); 
 };
 
-//DELETE
-const deleteData=(req, res)=>{
-   const res1=services.deleteData(req.body);
-   return res1;
-}
 
 //UPDATE
 const updateData=(req, res)=>{
@@ -32,4 +58,4 @@ const updateData=(req, res)=>{
  }
 
 
- module.exports={getAllData,insertData,deleteData,updateData};
+ module.exports={getAllData,insertData,deleteData,updateData,loginuser};

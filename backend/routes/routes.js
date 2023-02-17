@@ -10,6 +10,9 @@ router.use(bodyParser.urlencoded({extended:true}));
 //GET
 router.get('/show', usercontroller.getAllData);
 
+//LOGIN
+router.post('/login',usercontroller.loginuser);
+
 //INSERT
 router.post('/ab', usercontroller.insertData);
 
