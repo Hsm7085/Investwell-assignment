@@ -7,7 +7,7 @@ const register= Joi.object({
 
     email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
 
-    pass: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+    pass: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{6,30}$')),
 
     cpass: Joi.ref('pass')
 
@@ -16,7 +16,7 @@ const register= Joi.object({
 const login=Joi.object({
     email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
 
-    pass: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+    pass: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{6,30}$'))
 });
 
 const del=Joi.object({
@@ -33,7 +33,7 @@ const upd=Joi.object({
 
     email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
 
-    pass: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+    pass: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{6,30}$')),
 
     cpass: Joi.ref('pass')
 })

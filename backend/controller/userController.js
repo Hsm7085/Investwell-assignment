@@ -1,5 +1,6 @@
 const services=require('../services/userservices');
 const {connection}=require('../connection/db');
+var cryptojs = require("crypto-js");
 
 //GET
 const getAllData=async (req,res)=>{
@@ -14,13 +15,17 @@ const getAllData=async (req,res)=>{
 
  //LOGIN 
  const loginuser=async(req,res)=>{
-   
+   let pass=req.body.pass;
 const result=await services.loginuser(req.body);
-if(result.length==0){
+const bytes  = cryptojs.AES.decrypt(result[0].password, 'secret key 123');
+const originalText = bytes.toString(cryptojs.enc.Utf8);
+// console.log(result[0].password);
+if(result.length==0 || pass!=originalText){
    res.send("Invalid Credentials");
 }
 else{
-res.send(result);
+  const obj={fname:result[0].fname,lname:result[0].lname,user_id:result[0].user_id};
+res.send(obj);
 }
  };
 
@@ -47,10 +52,10 @@ const deleteData=async (req, res)=>{
 
 
 //UPDATE
-const updateData=(req, res)=>{
-    const res1=services.updateData(req.body);
+const updateData=async (req, res)=>{
+    const res1= await services.updateData(req.body);
     console.log("Done");
-    return res1;
+    res.send(res1);
  }
 
 

@@ -71,13 +71,13 @@ function validateForm() {
                 return false;
 
             }   
-            for(var i=0;i<data.length;i++){
-                if(data[i][3]==email){
-                    alert("This Email already exist");
-                    return false;
-                }
+            // for(var i=0;i<data.length;i++){
+            //     if(data[i][3]==email){
+            //         alert("This Email already exist");
+            //         return false;
+            //     }
 
-            }
+            // }
 
         //    if( hash.has(email)){
         //     alert("This Email already exist");
@@ -147,9 +147,9 @@ function loginuser(){
                 document.forms.second.pass.value="";
             }
             else{
-                let firstname=result[0].fname;
-                let lastname=result[0].lname;
-                let id=result[0].user_id;
+                let firstname=result.fname;
+                let lastname=result.lname;
+                let id=result.user_id;
                 document.getElementById("new").style.display="none";
                 document.getElementById("welcome").style.display="block";
                 document.getElementById("success").style.display="block";

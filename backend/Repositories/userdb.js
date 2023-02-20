@@ -45,13 +45,29 @@ async function insertData(abc){
 }
 
 //UPDATE
-function updateData(abc){
-    connection.query(abc,function(err ,results,fields){
-            console.log(results);  
-                
+async function updateData(abc){
+    return new Promise(function(resolve,reject){
+        connection.query(abc,function(err ,results){
+        
+            if(results.affectedRows===0){
+                return resolve("Invalid request");
+            }
+            else{
+                resolve("Updated Successfully");
+            }
+            // console.log(results);            
         }
-    );
+     );
+    })
+
 }
+// function updateData(abc){
+//     connection.query(abc,function(err ,results,fields){
+//             console.log(results);  
+                
+//         }
+//     );
+// }
 
 // DELETE
 // function deleteData(abc){
