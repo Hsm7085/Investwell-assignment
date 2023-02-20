@@ -16,10 +16,6 @@ const getAllData=async (req,res)=>{
  const loginuser=async(req,res)=>{
    
 const result=await services.loginuser(req.body);
-// res.send(result);
-let email=req.body.email;
-let pass=req.body.pass;
-
 if(result.length==0){
    res.send("Invalid Credentials");
 }

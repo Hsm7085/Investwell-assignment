@@ -3,6 +3,7 @@ const express=require('express');
 const router=express.Router();
 const {connection}=require("../connection/db");
 var bodyParser=require("body-parser");
+const {registervalidate,loginvalidate,deletevalidate,updatevalidate} = require('../validation/validation');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended:true}));
@@ -11,16 +12,16 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.get('/show', usercontroller.getAllData);
 
 //LOGIN
-router.post('/login',usercontroller.loginuser);
+router.post('/login',loginvalidate,usercontroller.loginuser);
 
 //INSERT
-router.post('/ab', usercontroller.insertData);
+router.post('/ab',registervalidate, usercontroller.insertData);
 
 //DELETE
-router.post('/del',usercontroller.deleteData);
+router.post('/del',deletevalidate,usercontroller.deleteData);
 
 //UPDATE
-router.post('/upd',usercontroller.updateData);
+router.post('/upd',updatevalidate,usercontroller.updateData);
   
 
 module.exports=router;

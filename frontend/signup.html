@@ -343,6 +343,9 @@ function updateUser(){
         type:"POST",
         data:obj,
         success: function(result){
+            if(typeof(result)==="string"){
+                alert(result);
+            }
             console.log("Hello",result);
         },
         error:function(error){

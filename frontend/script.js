@@ -71,13 +71,13 @@ function validateForm() {
                 return false;
 
             }   
-            // for(var i=0;i<data.length;i++){
-            //     if(data[i][3]==email){
-            //         alert("This Email already exist");
-            //         return false;
-            //     }
+            for(var i=0;i<data.length;i++){
+                if(data[i][3]==email){
+                    alert("This Email already exist");
+                    return false;
+                }
 
-            // }
+            }
 
         //    if( hash.has(email)){
         //     alert("This Email already exist");
@@ -87,7 +87,7 @@ function validateForm() {
 let data=[];
     
     n++;
-        data.push({n,name,lname,email,pass});
+        data.push({name,lname,email,pass,cpass});
        
         hash.set(email,pass);
         var ob=data[0];
@@ -103,15 +103,7 @@ let data=[];
               success:function(result) {
                console.log("tttttttttttt");
                 console.log(result);
-                    
-                    // document.getElementById("failed").style.display="block";
-                    // document.getElementById("failed").innerHTML=result;
-                    // setTimeout(()=>{
-                    //     document.getElementById("failed").style.display="none";
-                    // },2500)
-                
-                
-             
+                  
               },
               error: function(error) {
                 // console.log("jjjjjj");
@@ -158,13 +150,13 @@ function loginuser(){
                 let firstname=result[0].fname;
                 let lastname=result[0].lname;
                 let id=result[0].user_id;
-        document.getElementById("new").style.display="none";
-        document.getElementById("welcome").style.display="block";
-        document.getElementById("success").style.display="block";
-        document.getElementById("upd").style.display="block";
-    document.getElementById("rem").style.display="block";
-        document.getElementById("type").innerHTML="Welcome "+firstname+" "+lastname+",  UserId:  "+id;
-        document.getElementById("logout").innerHTML="Logout";
+                document.getElementById("new").style.display="none";
+                document.getElementById("welcome").style.display="block";
+                document.getElementById("success").style.display="block";
+                document.getElementById("upd").style.display="block";
+                document.getElementById("rem").style.display="block";
+                document.getElementById("type").innerHTML="Welcome "+firstname+" "+lastname+",  UserId:  "+id;
+                document.getElementById("logout").innerHTML="Logout";
             }
            
             
@@ -175,10 +167,5 @@ function loginuser(){
     });
    
     
-
-
-
-   
-
 }
 
