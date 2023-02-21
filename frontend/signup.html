@@ -12,8 +12,12 @@
 <style>
     body {
         text-align: center;
-        background-color: #1bbbd7;
+        /* background-color: #1bbbd7; */
         margin:0px;
+        background-image: url("https://png.pngtree.com/background/20210715/original/pngtree-chinese-wind-scroll-unfolding-form-background-picture-image_1304748.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 715px;
     }
     
 
@@ -81,7 +85,7 @@
         padding: 0px 20px;
         /* border-radius: 15px; */
         /* border: 2px solid #000000; */
-        background: rgb(20, 106, 220);
+        /* background: rgb(20, 106, 220); */
         color: white;
         font-size: 30px;
         text-align: left;
@@ -89,7 +93,7 @@
 
     button {
         padding: 10px 20px;
-        background-color: rgb(20, 106, 220);
+        background-color: rgb(153, 11, 11);
         color: white;
         border: none;
         border-radius: 20px;
@@ -171,7 +175,7 @@
 
     <form id="new2" name="third" class="design" style="display:none;">
         <div class="container">
-            <label> Email: <input type="email" id="del" name="email" class="add"></label>
+            <label> Email: <input type="email" id="del" name="email" class="add" disabled></label>
         </div>
       
         <div>
@@ -184,17 +188,17 @@
 
 
     <form id="new3" name="fourth" class="design" style="display:none;">
-        <div class="container" id="name">
-            <label> UserId <input type="text" name="UserId" class="add" ></label>
+        <div class="container" >
+            <label> UserId <input type="text" name="UserId" class="add" id="upi" disabled></label>
         </div>
-        <div class="container" id="name">
-            <label> Name: <input type="text" name="name" class="add" ></label>
+        <div class="container" >
+            <label> First Name: <input type="text" name="name" class="add" ></label>
         </div>
         <div class="container">
             <label> Last Name: <input type="text" name="lname" class="add"></label>
         </div>
         <div class="container">
-            <label> Email: <input type="email" name="email" class="add"></label>
+            <label> Email: <input type="email" name="email" class="add" id="upe" disabled></label>
         </div>
         <div class="container">
             <label> Password: <input type="password" name="pass" class="add"></label>
@@ -301,67 +305,6 @@ function signup(){
 }
 
 
-function removeUser(){
-    let email=document.getElementById("del").value;
-    let obj={email}
-    console.log("fghj");
-    console.log(obj.email);
-    $.ajax({
-        url:"http://localhost:3000/del",
-        type:"POST",
-        data:obj,
-        success: function(result){
-            if(typeof(result)=="string"){
-            alert(result);
-            }
-            // else{
-            //     get();
-            // }
-
-        },
-        error:function(error){
-            console.log(error);
-        }
-    })
-    
-        document.forms.third.email.value="";
-      
-       
-}
-function updateUser(){
-    let UserId=document.forms.fourth.UserId.value;
-    let name = document.forms.fourth.name.value;   
-    let lname = document.forms.fourth.lname.value;
-    let email = document.forms.fourth.email.value;
-    let pass = document.forms.fourth.pass.value;
-    let cpass = document.forms.fourth.cpass.value; 
-    console.log("HELLO");
-    const obj={UserId,name,lname,email,pass,cpass};
-
-    $.ajax({
-        url:"http://localhost:3000/upd",
-        type:"POST",
-        data:obj,
-        success: function(result){
-            if(typeof(result)==="string"){
-                alert(result);
-            }
-            console.log("Hello",result);
-        },
-        error:function(error){
-            console.log(error);
-        }
-    })
-        document.forms.fourth.UserId.value="";
-        document.forms.fourth.name.value="";
-        document.forms.fourth.lname.value="";
-        document.forms.fourth.email.value="";
-        document.forms.fourth.pass.value="";
-        document.forms.fourth.cpass.value="";
-        get();
-        document.getElementById("upd").style.display="block";
-    document.getElementById("rem").style.display="block";
-}
 
 </script>
 

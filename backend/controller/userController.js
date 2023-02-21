@@ -24,7 +24,7 @@ if(result.length==0 || pass!=originalText){
    res.send("Invalid Credentials");
 }
 else{
-  const obj={fname:result[0].fname,lname:result[0].lname,user_id:result[0].user_id};
+  const obj={fname:result[0].fname,lname:result[0].lname,user_id:result[0].user_id,email:result[0].email};
 res.send(obj);
 }
  };

@@ -4,6 +4,8 @@ let form=document.getElementById("myform");
 form.addEventListener('submit',function(e){
     e.preventDefault();
 });
+var usrid;
+var emal;
 function get(){
     
     console.log("fghj")
@@ -143,8 +145,7 @@ function loginuser(){
            
             if(typeof(result)==="string"){
                 alert(result);
-                document.forms.second.email.value="";
-                document.forms.second.pass.value="";
+               
             }
             else{
                 let firstname=result.fname;
@@ -157,8 +158,16 @@ function loginuser(){
                 document.getElementById("rem").style.display="block";
                 document.getElementById("type").innerHTML="Welcome "+firstname+" "+lastname+",  UserId:  "+id;
                 document.getElementById("logout").innerHTML="Logout";
+                usrid=id;
+                emal=result.email;
+                
+                document.getElementById("upi").value=usrid;
+                document.getElementById("upe").value=emal;
+                document.getElementById("del").value=emal;
+                console.log(usrid);
             }
-           
+            document.forms.second.email.value="";
+                document.forms.second.pass.value="";
             
         },
         error:function(error){
@@ -168,4 +177,67 @@ function loginuser(){
    
     
 }
+
+function removeUser(){
+    let email=document.getElementById("del").value;
+    let obj={email}
+    console.log("fghj");
+    console.log(obj.email);
+    $.ajax({
+        url:"http://localhost:3000/del",
+        type:"POST",
+        data:obj,
+        success: function(result){
+            if(typeof(result)=="string"){
+            alert(result);
+            }
+            // else{
+            //     get();
+            // }
+
+        },
+        error:function(error){
+            console.log(error);
+        }
+    })
+    
+        document.forms.third.email.value="";
+      
+       
+}
+function updateUser(){
+    let UserId=document.forms.fourth.UserId.value;
+    let name = document.forms.fourth.name.value;   
+    let lname = document.forms.fourth.lname.value;
+    let email = document.forms.fourth.email.value;
+    let pass = document.forms.fourth.pass.value;
+    let cpass = document.forms.fourth.cpass.value; 
+    console.log("HELLO");
+    const obj={UserId,name,lname,email,pass,cpass};
+
+    $.ajax({
+        url:"http://localhost:3000/upd",
+        type:"POST",
+        data:obj,
+        success: function(result){
+            if(typeof(result)==="string"){
+                alert(result);
+            }
+            console.log("Hello",result);
+        },
+        error:function(error){
+            console.log(error);
+        }
+    })
+        document.forms.fourth.UserId.value="";
+        document.forms.fourth.name.value="";
+        document.forms.fourth.lname.value="";
+        document.forms.fourth.email.value="";
+        document.forms.fourth.pass.value="";
+        document.forms.fourth.cpass.value="";
+        get();
+        document.getElementById("upd").style.display="block";
+    document.getElementById("rem").style.display="block";
+}
+
 
